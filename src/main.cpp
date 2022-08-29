@@ -7,16 +7,20 @@
 
 #include <iostream>
 #include <vector>
-
+#include <libcamera/libcamera.h> 
 using namespace std;
 using namespace cv;
+using namespace libcamera;
 
 constexpr double MinimumArea = 5000.00;
+static std::shared_ptr<Camera> camera;
+
 int main(int argc, char* argv[])
 {
 
     VideoCapture cap;
     bool update_bg_model = true;
+    
     cap.open(atoi(argv[1]));
     Ptr<BackgroundSubtractor> bg;
     bg = cv::createBackgroundSubtractorMOG2();
