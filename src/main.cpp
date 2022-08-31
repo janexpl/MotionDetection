@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 {
     const String keys =
         "{help h usage ?            |      | print this message   }"
-        "{pd photo_directory        |      | photo destination folder   }"
+        "{pd photo_directory        | ./     | photo destination folder   }"
         "{fps                       | 15   | fps for output video }"
         "{dh display_height         | 600  | display height       }"
         "{dw display_width          | 800  | display width       }";
