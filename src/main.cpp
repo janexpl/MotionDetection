@@ -47,10 +47,11 @@ int main(int argc, char* argv[])
     // cv::namedWindow ("Background");
 
     Mat frame, fgmask, fgimg, backgroundImage;
-
+    unsigned int i = 0;
     for(;;)
     {
         cap >> frame;
+        if (i % 5 == 0) {
         bg->apply(frame, fgimg);
         bg->getBackgroundImage(backgroundImage);
         erode (fgimg, fgimg, cv::Mat ());
@@ -65,13 +66,10 @@ int main(int argc, char* argv[])
             cout << "Detected" << endl;
             // cv::drawContours (frame, contours, -1, cv::Scalar (0, 0, 255), 2);
         }
-
-
-
         // cv::imshow ("Frame", frame);
         // cv::imshow ("Background", backgroundImage);
-	imwrite("test.jpg", frame);
-
+	    imwrite("test.jpg", frame);
+        }
         char k = (char)waitKey(30);
         if( k == 27 ) break;
 
