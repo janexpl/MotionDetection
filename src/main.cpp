@@ -34,8 +34,8 @@ int main(int argc, char *argv[])
     int capture_width = 800;  // 1280 ;
     int capture_height = 600; // 720 ;
     int framerate = 15;
-    int display_width = 640;  // 1280 ;
-    int display_height = 480; // 720 ;
+    int display_width = 800;  // 1280 ;
+    int display_height = 600; // 720 ;
     std::string pipeline = gstreamer_pipeline(capture_width, capture_height, framerate,
                                               display_width, display_height);
     std::cout << "Using pipeline: \n\t" << pipeline << "\n\n\n";
