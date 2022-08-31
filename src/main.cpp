@@ -4,7 +4,7 @@
 #include "opencv2/highgui/highgui.hpp"
 #include <opencv2/imgproc.hpp>
 #include <stdio.h>
-
+#include <format>
 #include <iostream>
 #include <vector>
 
@@ -68,7 +68,8 @@ int main(int argc, char* argv[])
         }
         // cv::imshow ("Frame", frame);
         // cv::imshow ("Background", backgroundImage);
-	    imwrite("test.jpg", frame);
+        
+	    imwrite(std::format("test{}.jpg", i), frame);
         }
         char k = (char)waitKey(30);
         if( k == 27 ) break;
