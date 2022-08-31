@@ -8,21 +8,36 @@
 #include <iostream>
 #include <vector>
 
-#include <libcamera/libcamera.h> 
 using namespace std;
 using namespace cv;
-using namespace libcamera;
 
 constexpr double MinimumArea = 5000.00;
-static std::shared_ptr<Camera> camera;
+std::string gstreamer_pipeline(int capture_width, int capture_height, int framerate, int display_width, int display_height) {
+    return
+            " libcamerasrc ! video/x-raw, "
+            " width=(int)" + std::to_string(capture_width) + ","
+            " height=(int)" + std::to_string(capture_height) + ","
+            " framerate=(fraction)" + std::to_string(framerate) +"/1 !"
+            " videoconvert ! videoscale !"
+            " video/x-raw,"
+            " width=(int)" + std::to_string(display_width) + ","
+            " height=(int)" + std::to_string(display_height) + " ! appsink";
+}
 
 int main(int argc, char* argv[])
 {
-
-    VideoCapture cap;
+  //pipeline parameters
+    int capture_width = 800; //1280 ;
+    int capture_height = 600; //720 ;
+    int framerate = 15 ;
+    int display_width = 640; //1280 ;
+    int display_height = 480; //720 ;
+    std::string pipeline = gstreamer_pipeline(capture_width, capture_height, framerate,
+                                              display_width, display_height);
+    std::cout << "Using pipeline: \n\t" << pipeline << "\n\n\n";
+    VideoCapture cap(pipeline, CAP_GSTREAMER);
     bool update_bg_model = true;
     
-    cap.open(atoi(argv[1]));
     Ptr<BackgroundSubtractor> bg;
     bg = cv::createBackgroundSubtractorMOG2();
    
@@ -55,7 +70,7 @@ int main(int argc, char* argv[])
 
         // cv::imshow ("Frame", frame);
         // cv::imshow ("Background", backgroundImage);
-
+	imwrite("test.jpg", frame);
 
         char k = (char)waitKey(30);
         if( k == 27 ) break;
