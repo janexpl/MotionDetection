@@ -30,12 +30,21 @@ std::string gstreamer_pipeline(int capture_width, int capture_height, int framer
 
 int main(int argc, char *argv[])
 {
+    const String keys =
+        "{help h usage ?            |      | print this message   }"
+        "{pd photo_directory        |      | photo destination folder   }"
+        "{fps                       | 15   | fps for output video }"
+        "{dh display_height         | 600  | display height       }"
+        "{dw display_width          | 800  | display width       }";
+    CommandLineParser parser(argc, argv, keys);
+    parser.about("Motion Detection v1.0.0");
+    string photo_destination = parser.get<string>("pd");
     // pipeline parameters
     int capture_width = 800;  // 1280 ;
     int capture_height = 600; // 720 ;
-    int framerate = 15;
-    int display_width = 800;  // 1280 ;
-    int display_height = 600; // 720 ;
+    int framerate = parser.get<int>("fps");
+    int display_width = parser.get<int>("dw");  // 1280 ;
+    int display_height = parser.get<int>("dh"); // 720 ;
     std::string pipeline = gstreamer_pipeline(capture_width, capture_height, framerate,
                                               display_width, display_height);
     std::cout << "Using pipeline: \n\t" << pipeline << "\n\n\n";
@@ -71,7 +80,7 @@ int main(int argc, char *argv[])
             cout << "Detected" << endl;
             // cv::drawContours (frame, contours, -1, cv::Scalar (0, 0, 255), 2);
 
-            imwrite(cv::format("test%d.jpg", i), frame);
+            imwrite(cv::format("%stest%d.jpg", photo_destination, i), frame);
         }
         // cv::imshow ("Frame", frame);
         // cv::imshow ("Background", backgroundImage);
