@@ -70,11 +70,12 @@ int main(int argc, char *argv[])
             }
             cout << "Detected" << endl;
             // cv::drawContours (frame, contours, -1, cv::Scalar (0, 0, 255), 2);
+
+            imwrite(cv::format("test%d.jpg", i), frame);
         }
         // cv::imshow ("Frame", frame);
         // cv::imshow ("Background", backgroundImage);
 
-        imwrite(cv::format("test%d.jpg", i), frame);
         i++;
         char k = (char)waitKey(30);
         if (k == 27)
