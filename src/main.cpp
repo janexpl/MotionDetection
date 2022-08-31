@@ -38,6 +38,12 @@ int main(int argc, char *argv[])
         "{dw display_width          | 800  | display width       }";
     CommandLineParser parser(argc, argv, keys);
     parser.about("Motion Detection v1.0.0");
+    if (parser.has("help"))
+    {
+        parser.printMessage();
+        return 0;
+    }
+
     string photo_destination = parser.get<string>("pd");
     // pipeline parameters
     int capture_width = 800;  // 1280 ;
