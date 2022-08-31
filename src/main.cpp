@@ -70,6 +70,7 @@ int main(int argc, char* argv[])
         
 	    imwrite(cv::format("test%d.jpg", i), frame);
         }
+        i++;
         char k = (char)waitKey(30);
         if( k == 27 ) break;
 
