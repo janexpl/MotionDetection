@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
             cout << "Detected" << endl;
             // cv::drawContours (frame, contours, -1, cv::Scalar (0, 0, 255), 2);
 
-            imwrite(cv::format("%stest%d.jpg", photo_destination, i), frame);
+            imwrite(cv::format("%stest%d.jpg", photo_destination.c_str(), i), frame);
         }
         // cv::imshow ("Frame", frame);
         // cv::imshow ("Background", backgroundImage);
